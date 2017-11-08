@@ -1,6 +1,11 @@
-FROM microsoft/dotnet
-#ARG source
+FROM zabavnov/fuse
+#RUN apt-get update -qq
+#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils
+#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libfuse2
 WORKDIR /app
-COPY Docker/netcoreapp2.0/ .
-COPY Docker/fuse.harness/ .
-ENTRYPOINT ["dotnet", "fuse.interop.tests.dll"]
+COPY *.csproj .
+RUN dotnet restore
+COPY Publish .
+COPY / .
+RUN dotnet build --no-restore -f netcoreapp2.0
+ENTRYPOINT ["dotnet", "xunit", "-framework", "netcoreapp2.0", "-nobuild", "-nologo"]

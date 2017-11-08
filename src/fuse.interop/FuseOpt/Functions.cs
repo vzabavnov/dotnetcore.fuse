@@ -7,6 +7,7 @@ namespace Fuse.Interop.FuseOpt
     {
         /// <summary>
         /// Processing function
+        /// typedef int (*fuse_opt_proc_t)(void *data, const char *arg, int key, struct fuse_args *outargs);
         ///
         /// This function is called if
         ///    - option did not match any 'struct fuse_opt'
@@ -29,7 +30,7 @@ namespace Fuse.Interop.FuseOpt
         /// <param name="key">determines why the processing function was called</param>
         /// <param name="outargs">the current output argument list</param>
         /// <returns>-1 on error, 0 if arg is to be discarded, 1 if arg should be kept</returns>
-        internal delegate int FuseOptProc(object data, string arg, int key, FuseArgs outargs);
+        internal delegate int FuseOptProc(object data, string arg, FuseOpeKey key, FuseArgs outargs);
 
         /// <summary>
         /// Option parsing function 
@@ -49,8 +50,8 @@ namespace Fuse.Interop.FuseOpt
         /// <param name="opts">the option description array</param>
         /// <param name="proc">the processing function </param>
         /// <returns>-1 on error, 0 on success</returns>
-        [DllImport("libfuse")]
-        internal static extern int FuseOptParse(FuseArgs[] args, object data, FuseOpt[] opts, FuseOptProc proc);
+        [DllImport("libfuse", EntryPoint = "fuse_opt_parse")]
+        internal static extern int FuseOptParse(FuseArgs args, object data, FuseOpt[] opts, FuseOptProc proc);
 
         /// <summary>
         /// Add an option to a comma separated option list 
@@ -59,7 +60,7 @@ namespace Fuse.Interop.FuseOpt
         /// <param name="opts">a pointer to an option list, may point to a NULL value.</param>
         /// <param name="opt">the option to add </param>
         /// <returns>-1 on allocation error, 0 on success </returns>
-        [DllImport("libfuse")]
+        [DllImport("libfuse", EntryPoint = "fuse_opt_add_opt")]
         internal static extern int FuseOptAddOpt(ref string opts, string opt);
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Fuse.Interop.FuseOpt
         /// <param name="args">the structure containing the current argument list </param>
         /// <param name="arg">the new argument to add </param>
         /// <returns>-1 on allocation error, 0 on success </returns>
-        [DllImport("libfuse")]
+        [DllImport("libfuse", EntryPoint = "fuse_opt_add_arg", CharSet = CharSet.Ansi)]
         internal static extern int FuseOptAddArg(FuseArgs args, string arg);
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace Fuse.Interop.FuseOpt
         /// <param name="pos">the position at which to add the argument </param>
         /// <param name="arg">new argument to add </param>
         /// <returns></returns>
-        [DllImport("libfuse")]
+        [DllImport("libfuse", EntryPoint = "fuse_opt_insert_arg")]
         internal static extern int FuseOptInsertArg(FuseArgs args, int pos, string arg);
 
         /// <summary>
@@ -92,7 +93,7 @@ namespace Fuse.Interop.FuseOpt
         /// </summary>
         /// <remarks>The structure itself is not freed</remarks>
         /// <param name="args">the structure containing the argument list </param>
-        [DllImport("libfuse")]
+        [DllImport("libfuse", EntryPoint = "fuse_opt_free_args")]
         internal static extern void FuseOptFreeAgs(FuseArgs args);
 
         /// <summary>

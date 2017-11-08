@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>Fuse.Interop</RootNamespace>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>C:\Dev\dotnetcore.fuse\tests\fuse.interop.tests\Publish\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

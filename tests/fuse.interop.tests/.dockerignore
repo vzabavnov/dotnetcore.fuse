@@ -1,2 +1,4 @@
-*
-!Docker/*
+bin/
+obj/
+Dockerfile
+

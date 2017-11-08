@@ -64,8 +64,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.so</TargetExt>
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(ProjectDir)..\fuse.interop.tests\Docker\fuse.harness</OutDir>
-    <IncludePath>C:\Dev\dotnetcore.fuse\Include;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)..\fuse.interop.tests\Publish\netcoreapp2.0\</OutDir>
+    <IncludePath>C:\Dev\dotnetcore.fuse\Include;C:\Dev\dotnetcore.fuse\tests\Include;C:\Dev\libfuse\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="fuse_opt.cpp" />

@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /tests/fuse.interop.tests/Docker/
 *launchSettings.json
+/tests/Include/fuse/*
