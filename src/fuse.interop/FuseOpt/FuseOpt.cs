@@ -60,7 +60,7 @@ namespace Fuse.Interop.FuseOpt
         /// <summary>
         ///     Matching template and optional parameter formatting
         /// </summary>
-        [MarshalAs(UnmanagedType.LPStr)] public string templ;
+        public IntPtr templ;
 
         /// <summary>
         ///     Offset of variable within 'data' parameter of fuse_opt_parse() or -1
@@ -72,19 +72,5 @@ namespace Fuse.Interop.FuseOpt
         ///     format
         /// </summary>
         public int value;
-
-        /// <summary>
-        ///     Key option.	In case of a match, the processing function will be called with the specified key.
-        /// </summary>
-        /// <param name="template"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static FuseOpt Key(string template, int key) =>
-            new FuseOpt { templ = template, offset = ulong.MinValue, value = key };
-
-        /// <summary>
-        ///     Last option. An array of 'struct fuse_opt' must end with a NULL template value
-        /// </summary>
-        public static FuseOpt End = new FuseOpt { offset = 0, templ = null, value = 0 };
     }
 }
